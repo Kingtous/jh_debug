@@ -25,6 +25,7 @@ jhDebugMain({
   VoidCallback? beforeAppChildFn,
   DebugMode debugMode = JhConstants.ISIN_DEBUGMODE,
   Function<Widget>(String message, Object error)? errorWidgetFn,
+  VoidCallback? postAppRunFn
 }) {
   if (debugMode != DebugMode.self) {
     FlutterError.onError = (FlutterErrorDetails details) {
@@ -62,6 +63,7 @@ jhDebugMain({
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       runApp(appChild);
+      postAppRunFn?.call();
     },
 
     /// zone错误回调函数
